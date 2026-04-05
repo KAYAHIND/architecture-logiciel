@@ -1,0 +1,13 @@
+@RestController
+@RequestMapping("/api/orders")
+public class OrderController {
+
+    @Autowired
+    private OrderService service;
+
+    @PostMapping
+    public Order create(@RequestParam Long productId,
+                        @RequestParam int quantity) {
+        return service.createOrder(productId, quantity);
+    }
+}

@@ -1,0 +1,22 @@
+@Service
+public class OrderService {
+
+    @Autowired
+    private OrderRepository repo;
+
+    @Autowired
+    private ProductClient productClient;
+
+    public Order createOrder(Long productId, int quantity) {
+
+        ProductDTO product = productClient.getProduct(productId);
+
+        Order o = new Order();
+        o.setProductId(productId);
+        o.setProductName(product.getName());
+        o.setQuantity(quantity);
+        o.setTotalPrice(product.getPrice() * quantity);
+
+        return repo.save(o);
+    }
+}
